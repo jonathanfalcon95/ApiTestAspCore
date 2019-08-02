@@ -19,8 +19,8 @@ namespace TodoApi.Controllers
 
             if (_context.Users.Count() == 0)
             {
-                // Create a new TodoItem if collection is empty,
-                // which means you can't delete all TodoItems.
+                // Create a new user if collection is empty,
+                // which means you can't delete all users.
                 _context.Users.Add(new User { Name = "Juan", UserName = "JPerez", LastName = "Perez", Age = 25 });
                 _context.Users.Add(new User { Name = "Maria", UserName = "MHernandez", LastName = "Hernadez", Age = 21 });
 
@@ -70,6 +70,23 @@ namespace TodoApi.Controllers
             }
 
             _context.Entry(user).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE: api/User/1
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(long id)
+        {
+            var user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
             return NoContent();
