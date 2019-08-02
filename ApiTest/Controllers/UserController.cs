@@ -54,10 +54,14 @@ namespace TodoApi.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            if (ModelState.IsValid)
+            {
+                  _context.Users.Add(user);
+                 await _context.SaveChangesAsync();
+                 return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+            }
 
-            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+            return BadRequest(ModelState);
         }
 
         // PUT: api/user/2
@@ -72,7 +76,7 @@ namespace TodoApi.Controllers
             _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         // DELETE: api/User/1
