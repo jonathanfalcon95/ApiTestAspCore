@@ -4,8 +4,8 @@ API test
 
 ## Endpoints
 
-* `GET /api/users`: Quoation all users
-* `GET /api/users/{id}`: a specific user
+* `GET /api/users`: All users
+* `GET /api/users/{id}`: A specific user
 * `DELETE /api/users/{id}`: Delete a specific user
 * `POST /api/users`: Create a new user, body example :
   
