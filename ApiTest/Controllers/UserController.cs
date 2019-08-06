@@ -1,6 +1,7 @@
 ﻿using ApiTest.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,8 +22,9 @@ namespace TodoApi.Controllers
             {
                 // Create a new user if collection is empty,
                 // which means you can't delete all users.
-                _context.Users.Add(new User { Name = "Juan", UserName = "JPerez", LastName = "Perez", Age = 25 });
-                _context.Users.Add(new User { Name = "Maria", UserName = "MHernandez", LastName = "Hernadez", Age = 21 });
+                 DateTime aDate = DateTime.Now;
+                _context.Users.Add(new User { Name = "Juan", UserName = "JPerez", LastName = "Perez", Age = 25, LastSessionDateTime=aDate });
+                _context.Users.Add(new User { Name = "Maria", UserName = "MHernandez", LastName = "Hernadez", Age = 21, LastSessionDateTime = aDate });
 
                 _context.SaveChanges();
             }
