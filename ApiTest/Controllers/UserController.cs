@@ -12,9 +12,9 @@ namespace TodoApi.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserContext _context;
+        private readonly BaseContext _context;
 
-        public UserController(UserContext context)
+        public UserController(BaseContext context)
         {
             _context = context;
 

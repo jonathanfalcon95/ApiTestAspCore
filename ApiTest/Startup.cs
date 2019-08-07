@@ -30,7 +30,7 @@ namespace ApiTest
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddDbContext<UserContext>(options =>
+            services.AddDbContext<BaseContext>(options =>
               options.UseSqlServer(
                   Configuration.GetConnectionString("BaseContext")));
 
