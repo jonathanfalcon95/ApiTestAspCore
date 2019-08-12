@@ -41,8 +41,8 @@ namespace TodoApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(long id)
         {
-            var user = await _context.Users.FindAsync(id);
-
+            var user = await _context.Users.Include(x=>x.Assignment).FirstOrDefaultAsync(y=>y.Id==id);
+            Console.WriteLine(user);
             if (user == null)
             {
                 return NotFound();

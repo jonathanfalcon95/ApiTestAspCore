@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiTest.Controllers
 {
-    [Route("api/user/{userID}/assignment")]
+    [Route("api/assignment")]
     [ApiController]
     public class AssignmentController : ControllerBase
     {
@@ -23,13 +23,52 @@ namespace ApiTest.Controllers
         }
 
         // GET: api/user/id/assignment
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Assignment>>> GetAll(int userID)
         {
 
-            return await _context.Assignment.Where(x => x.UserID == userID).ToListAsync();
+            return await _context.Assignment.ToListAsync();
             
         }
+        
+        [HttpGet("user/{id}")]
+        public async Task<IActionResult> GetAssignment([FromRoute] long id)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var assignment = await _context.Assignment.Where(x => x.UserID == id).ToListAsync();
+
+            if (assignment == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(assignment);
+        }
+
+        // POST: api/Assignments
+        [HttpPost]
+        public async Task<IActionResult> PostAssignment([FromBody] Assignment assignment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _context.Assignment.Add(assignment);
+            
+                await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetAssignment), new { id = assignment.Id }, assignment);
+        }
+
+            
+        //}
+
 
         //// GET: api/users/1
         //[HttpGet("{id}")]

@@ -29,7 +29,7 @@ namespace ApiTest
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddMvc().AddJsonOptions(ConfigureJson);
             services.AddDbContext<BaseContext>(options =>
               options.UseSqlServer(
                   Configuration.GetConnectionString("BaseContext")));
@@ -37,7 +37,10 @@ namespace ApiTest
 
 
         }
-
+        private void ConfigureJson(MvcJsonOptions obj)
+        {
+            obj.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
