@@ -35,7 +35,19 @@ namespace TodoApi.Controllers
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
             return await _context.Users.ToListAsync();
+            
         }
+        //[HttpGet("/test")]
+        //public ActionResult<IEnumerable<User>> GetUserTjj()
+        //{
+        //    DateTime aDate = DateTime.Now;
+        //    return await _context.Users.ToListAsync();
+        //    var assig = new User { Name = "Mariaaa", UserName = "MHernandez", LastName = "Hernadez", Age = 21, LastSessionDateTime = aDate };
+        //    assig.Assignment.Add(new Assignment { HardwareID = 1, SoftwareID = 1 });
+
+        //    _context.Users.Add(assig);
+        //    _context.SaveChanges();
+        //}
 
         // GET: api/users/1
         [HttpGet("{id}")]

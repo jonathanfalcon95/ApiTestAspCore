@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiTest.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -55,14 +56,29 @@ namespace ApiTest.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAssignment([FromBody] Assignment assignment)
         {
+            assignment.Software = null;
+            assignment.Hardware = null;
+            assignment.User = null;
+
+            //foreach (var item in assignment)
+            //{
+            //    item.Software = null;
+            //    item.Hardware = null;
+            //    item.User = null;
+            //}
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            // var od = Mapper.Map<IEnumerable<Assignment>>(assignment);
 
-            _context.Assignment.Add(assignment);
-            
-                await _context.SaveChangesAsync();
+            // _context.Assignment.AddRange(od);
+            // await _context.SaveChangesAsync();
+
+            //return CreatedAtAction("GetAssingment", new { id = od.First().CustomerOrderId }, orderDetail);
+             _context.Assignment.Add(assignment);
+
+            await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetAssignment), new { id = assignment.Id }, assignment);
         }
 
