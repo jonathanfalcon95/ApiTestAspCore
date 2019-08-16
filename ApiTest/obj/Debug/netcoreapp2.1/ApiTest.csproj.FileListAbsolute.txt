@@ -11,3 +11,4 @@ C:\Users\Jesus Soteldo\source\repos\ApiTest\ApiTest\obj\Debug\netcoreapp2.1\ApiT
 C:\Users\Jesus Soteldo\source\repos\ApiTest\ApiTest\obj\Debug\netcoreapp2.1\ApiTest.RazorTargetAssemblyInfo.cache
 C:\Users\Jesus Soteldo\source\repos\ApiTest\ApiTest\obj\Debug\netcoreapp2.1\ApiTest.dll
 C:\Users\Jesus Soteldo\source\repos\ApiTest\ApiTest\obj\Debug\netcoreapp2.1\ApiTest.pdb
+C:\Users\Jesus Soteldo\source\repos\ApiTest\ApiTest\obj\Debug\netcoreapp2.1\ApiTest.csprojAssemblyReference.cache

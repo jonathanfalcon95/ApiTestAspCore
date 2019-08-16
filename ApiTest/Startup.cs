@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Cors;
 namespace ApiTest
 {
     public class Startup
@@ -20,21 +21,21 @@ namespace ApiTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-          
+            services.AddCors();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+           
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMvc().AddJsonOptions(ConfigureJson);
             services.AddDbContext<BaseContext>(options =>
               options.UseSqlServer(
                   Configuration.GetConnectionString("BaseContext")));
 
-
+           
 
         }
         private void ConfigureJson(MvcJsonOptions obj)
@@ -54,7 +55,12 @@ namespace ApiTest
             }
 
             app.UseHttpsRedirection();
+           app.UseCors(option =>
+          option.WithOrigins("http://localhost:4200")
+          .AllowAnyMethod()
+          .AllowAnyHeader());
             app.UseMvc();
+          
         }
     }
 }

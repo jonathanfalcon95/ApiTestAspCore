@@ -10,9 +10,9 @@ namespace ApiTest.Models
     public class Assignment
     {
 
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        //[Key]
+        //[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        //public long Id { get; set; }
        
         public long UserID { get; set; }
         public User User { get; set; }

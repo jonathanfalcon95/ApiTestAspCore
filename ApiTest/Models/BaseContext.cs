@@ -30,7 +30,7 @@ namespace ApiTest.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Hardware> Hardware { get; set; }
         public DbSet<Software> Software { get; set; }
-        public DbSet<Assignment> Assignment { get; set; }
+        public DbSet<Assignment> Assignments { get; set; }
 
     }
 }

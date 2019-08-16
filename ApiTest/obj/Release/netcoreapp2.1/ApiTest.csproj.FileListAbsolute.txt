@@ -3,7 +3,6 @@ C:\Users\Jesus Soteldo\source\repos\ApiTest\ApiTest\bin\Release\netcoreapp2.1\Ap
 C:\Users\Jesus Soteldo\source\repos\ApiTest\ApiTest\bin\Release\netcoreapp2.1\ApiTest.runtimeconfig.dev.json
 C:\Users\Jesus Soteldo\source\repos\ApiTest\ApiTest\bin\Release\netcoreapp2.1\ApiTest.dll
 C:\Users\Jesus Soteldo\source\repos\ApiTest\ApiTest\bin\Release\netcoreapp2.1\ApiTest.pdb
-C:\Users\Jesus Soteldo\source\repos\ApiTest\ApiTest\obj\Release\netcoreapp2.1\ApiTest.csprojAssemblyReference.cache
 C:\Users\Jesus Soteldo\source\repos\ApiTest\ApiTest\obj\Release\netcoreapp2.1\ApiTest.csproj.CoreCompileInputs.cache
 C:\Users\Jesus Soteldo\source\repos\ApiTest\ApiTest\obj\Release\netcoreapp2.1\ApiTest.RazorAssemblyInfo.cache
 C:\Users\Jesus Soteldo\source\repos\ApiTest\ApiTest\obj\Release\netcoreapp2.1\ApiTest.RazorAssemblyInfo.cs

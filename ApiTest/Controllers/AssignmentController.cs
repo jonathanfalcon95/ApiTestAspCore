@@ -29,7 +29,7 @@ namespace ApiTest.Controllers
         public async Task<ActionResult<IEnumerable<Assignment>>> GetAll(int userID)
         {
 
-            return await _context.Assignment.ToListAsync();
+            return await _context.Assignments.ToListAsync();
             
         }
         
@@ -42,7 +42,7 @@ namespace ApiTest.Controllers
                 return BadRequest(ModelState);
             }
 
-            var assignment = await _context.Assignment.Where(x => x.UserID == id).ToListAsync();
+            var assignment = await _context.Assignments.Where(x => x.UserID == id).ToListAsync();
 
             if (assignment == null)
             {
@@ -76,10 +76,10 @@ namespace ApiTest.Controllers
             // await _context.SaveChangesAsync();
 
             //return CreatedAtAction("GetAssingment", new { id = od.First().CustomerOrderId }, orderDetail);
-             _context.Assignment.Add(assignment);
+             _context.Assignments.Add(assignment);
 
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetAssignment), new { id = assignment.Id }, assignment);
+            return CreatedAtAction(nameof(GetAssignment),  assignment);
         }
 
             
