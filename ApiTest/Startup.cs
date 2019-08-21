@@ -1,4 +1,5 @@
 ﻿using ApiTest.Models;
+using ApiTest.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,7 +29,7 @@ namespace ApiTest
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-           
+            services.AddScoped<Repository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMvc().AddJsonOptions(ConfigureJson);
             services.AddDbContext<BaseContext>(options =>

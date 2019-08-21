@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiTest.Models;
+using ApiTest.Data;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,25 +16,26 @@ namespace ApiTest.Controllers
     public class AssignmentController : ControllerBase
     {
         private readonly BaseContext _context;
-
-        public AssignmentController(BaseContext context)
+        private readonly Repository _repository;
+        public AssignmentController(BaseContext context, Repository repository)
         {
             _context = context;
+            this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
-            
+
         }
 
         // GET: api/user/id/assignment
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Assignment>>> GetAll(int userID)
+        public async Task<ActionResult<IEnumerable<Assignment>>> GetAll()
         {
 
             return await _context.Assignments.ToListAsync();
             
         }
-        
-        [HttpGet("user/{id}")]
+
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetAssignment([FromRoute] long id)
         {
 
@@ -52,6 +54,17 @@ namespace ApiTest.Controllers
             return Ok(assignment);
         }
 
+        [HttpGet("user/{id}")]
+        public async Task<IActionResult> GetHardwareByUserID([FromRoute] long id)
+        {
+
+            var response = await _repository.GetById(id);
+            if (response == null) { return NotFound(); }
+           
+
+            return Ok(response);
+        }
+
         // POST: api/Assignments
         [HttpPost]
         public async Task<IActionResult> PostAssignment([FromBody] Assignment assignment)
@@ -60,91 +73,32 @@ namespace ApiTest.Controllers
             assignment.Hardware = null;
             assignment.User = null;
 
-            //foreach (var item in assignment)
-            //{
-            //    item.Software = null;
-            //    item.Hardware = null;
-            //    item.User = null;
-            //}
+           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            // var od = Mapper.Map<IEnumerable<Assignment>>(assignment);
-
-            // _context.Assignment.AddRange(od);
-            // await _context.SaveChangesAsync();
-
-            //return CreatedAtAction("GetAssingment", new { id = od.First().CustomerOrderId }, orderDetail);
+           
              _context.Assignments.Add(assignment);
 
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetAssignment),  assignment);
+            return CreatedAtAction(nameof(GetAssignment), new { id = assignment.UserID }, assignment);
         }
 
+
+       
+
+        // DELETE: api/User/1
+        [HttpPost("delete")]
+        public async Task DeleteAss([FromBody] Assignment assignment)
+        {
+            Console.WriteLine(assignment);
+            assignment.Software = null;
+            assignment.Hardware = null;
+            assignment.User = null;
+
+            await _repository.DeleteById(assignment);
             
-        //}
-
-
-        //// GET: api/users/1
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<User>> GetUser(long id)
-        //{
-        //    var user = await _context.Users.FindAsync(id);
-
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return user;
-        //}
-
-
-        //// POST: api/users
-        //[HttpPost]
-        //public async Task<ActionResult<User>> PostUser(User user)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Users.Add(user);
-        //        await _context.SaveChangesAsync();
-        //        return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
-        //    }
-
-        //    return BadRequest(ModelState);
-        //}
-
-        //// PUT: api/user/2
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutUser(long id, User user)
-        //{
-        //    if (id != user.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(user).State = EntityState.Modified;
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok();
-        //}
-
-        //// DELETE: api/User/1
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteUser(long id)
-        //{
-        //    var user = await _context.Users.FindAsync(id);
-
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Users.Remove(user);
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
+        }
     }
 }
